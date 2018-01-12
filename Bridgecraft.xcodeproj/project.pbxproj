@@ -8,12 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		E8106897200966D600229277 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8106896200966D600229277 /* main.swift */; };
+		E81068A9200968FD00229277 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81068A6200968FC00229277 /* SourceKittenFramework.framework */; };
+		E81068AA200968FD00229277 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81068A7200968FC00229277 /* SWXMLHash.framework */; };
+		E81068AB200968FD00229277 /* Yams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81068A8200968FD00229277 /* Yams.framework */; };
+		E81068AD2009690800229277 /* SourceKittenFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068A6200968FC00229277 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E81068AE2009690800229277 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068A7200968FC00229277 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E81068AF2009690800229277 /* Yams.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068A8200968FD00229277 /* Yams.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E81068BD20096AE400229277 /* XcodeEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81068BC20096AE400229277 /* XcodeEditor.framework */; };
+		E81068BE20096AE900229277 /* XcodeEditor.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068BC20096AE400229277 /* XcodeEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E81068AC2009690200229277 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E81068AD2009690800229277 /* SourceKittenFramework.framework in CopyFiles */,
+				E81068AE2009690800229277 /* SWXMLHash.framework in CopyFiles */,
+				E81068BE20096AE900229277 /* XcodeEditor.framework in CopyFiles */,
+				E81068AF2009690800229277 /* Yams.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E8106893200966D600229277 /* Bridgecraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bridgecraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8106896200966D600229277 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E810689D200966D600229277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E81068A4200967E800229277 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		E81068A6200968FC00229277 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SourceKittenFramework.framework; path = Carthage/Build/Mac/SourceKittenFramework.framework; sourceTree = "<group>"; };
+		E81068A7200968FC00229277 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/Mac/SWXMLHash.framework; sourceTree = "<group>"; };
+		E81068A8200968FD00229277 /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Yams.framework; path = Carthage/Build/Mac/Yams.framework; sourceTree = "<group>"; };
+		E81068BC20096AE400229277 /* XcodeEditor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeEditor.framework; path = Carthage/Build/Mac/XcodeEditor.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +50,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E81068BD20096AE400229277 /* XcodeEditor.framework in Frameworks */,
+				E81068A9200968FD00229277 /* SourceKittenFramework.framework in Frameworks */,
+				E81068AA200968FD00229277 /* SWXMLHash.framework in Frameworks */,
+				E81068AB200968FD00229277 /* Yams.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -30,8 +63,10 @@
 		E810688A200966D600229277 = {
 			isa = PBXGroup;
 			children = (
+				E81068A4200967E800229277 /* Cartfile */,
 				E8106895200966D600229277 /* Bridgecraft */,
 				E8106894200966D600229277 /* Products */,
+				E81068A5200968FC00229277 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -52,6 +87,17 @@
 			path = Bridgecraft;
 			sourceTree = "<group>";
 		};
+		E81068A5200968FC00229277 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E81068BC20096AE400229277 /* XcodeEditor.framework */,
+				E81068A6200968FC00229277 /* SourceKittenFramework.framework */,
+				E81068A7200968FC00229277 /* SWXMLHash.framework */,
+				E81068A8200968FD00229277 /* Yams.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -62,6 +108,7 @@
 				E810688F200966D600229277 /* Sources */,
 				E8106890200966D600229277 /* Frameworks */,
 				E8106891200966D600229277 /* Resources */,
+				E81068AC2009690200229277 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -240,6 +287,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Bridgecraft/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.Bridgecraft;
@@ -254,6 +305,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Bridgecraft/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.Bridgecraft;
