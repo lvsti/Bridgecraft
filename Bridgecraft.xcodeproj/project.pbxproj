@@ -43,6 +43,7 @@
 		E81068A7200968FC00229277 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/Mac/SWXMLHash.framework; sourceTree = "<group>"; };
 		E81068A8200968FD00229277 /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Yams.framework; path = Carthage/Build/Mac/Yams.framework; sourceTree = "<group>"; };
 		E81068BC20096AE400229277 /* XcodeEditor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeEditor.framework; path = Carthage/Build/Mac/XcodeEditor.framework; sourceTree = "<group>"; };
+		E81068BF200970DA00229277 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				E81068A4200967E800229277 /* Cartfile */,
+				E81068BF200970DA00229277 /* LICENSE */,
 				E8106895200966D600229277 /* Bridgecraft */,
 				E8106894200966D600229277 /* Products */,
 				E81068A5200968FC00229277 /* Frameworks */,
