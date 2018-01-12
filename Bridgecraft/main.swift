@@ -254,11 +254,15 @@ func cleanUp(projectURL: URL, sourceURL: URL, preprocessedURL: URL) {
 // -----------------------------------------------------------------------------
 
 if CommandLine.arguments.count < 3 {
-    print("Usage: \(CommandLine.arguments.first!) <project_file> <target_name>")
+    print("Usage: \(CommandLine.arguments.first!) <project_file> <target_name> [options]")
+    print("Options:")
+    print("  --assume-nonnull       Assumes that all headers have been audited for nullability")
+    print("\n")
 }
 
 let origProjectURL = URL(fileURLWithPath: CommandLine.arguments[1])
 let targetName = CommandLine.arguments[2]
+let assumeNonnull = CommandLine.arguments.count >= 4 && CommandLine.arguments[3] == "--assume-nonnull"
 
 let seed = arc4random() % 100
 
@@ -294,8 +298,10 @@ do {
                                  compilerFlags: compilerFlags,
                                  preprocessedURL: preprocessedURL)
     
-    // add nullability annotations
-    try fixNullability(preprocessedURL: preprocessedURL)
+    if assumeNonnull {
+        // add nullability annotations
+        try fixNullability(preprocessedURL: preprocessedURL)
+    }
     
     // generate interface with sourcekitten
     let interface = try generateSwiftInterface(preprocessedURL: preprocessedURL)
