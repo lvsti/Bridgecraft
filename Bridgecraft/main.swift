@@ -263,6 +263,7 @@ if CommandLine.arguments.count < 3 {
     print("Options:")
     print("  --assume-nonnull       Assumes that all headers have been audited for nullability")
     print("\n")
+    exit(1)
 }
 
 let origProjectURL = URL(fileURLWithPath: CommandLine.arguments[1])
@@ -319,5 +320,5 @@ do {
 catch {
     // clean up
     cleanUp(projectURL: projectURL, sourceURL: sourceURL, preprocessedURL: preprocessedURL)
-    exit(1)
+    exit(2)
 }
