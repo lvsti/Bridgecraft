@@ -160,7 +160,7 @@ func compilerFlagsForBridgingSource(sourceURL: URL, projectURL: URL, targetName:
     let pattern = "-c \(sourceURL.resolvingSymlinksInPath().path)"
     var compilerFlags: [String]? = nil
     
-    let gluedPrefixes = ["-I", "-D", "-mmacosx-version-min"]
+    let gluedPrefixes = ["-I", "-D", "-F", "-mmacosx-version-min"]
     let splitPrefixes = ["-iquote", "-arch", "-isysroot"]
     
     output.enumerateLines { (line, stop) in
