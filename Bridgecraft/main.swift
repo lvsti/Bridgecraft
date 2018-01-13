@@ -25,17 +25,20 @@ func shell(_ command: String, args: [String]) throws -> String {
     ps.standardOutput = pipe
     
     ps.launch()
-    ps.waitUntilExit()
+    
+    var buffer = Data()
+    while ps.isRunning {
+        buffer.append(pipe.fileHandleForReading.readDataToEndOfFile())
+    }
     
     guard ps.terminationStatus == 0 else {
         throw BridgecraftError.unknown
     }
     
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    guard let output = String(data: data, encoding: String.Encoding.utf8) else {
+    guard let output = String(data: buffer, encoding: String.Encoding.utf8) else {
         throw BridgecraftError.unknown
     }
-    
+
     return output
 }
 
