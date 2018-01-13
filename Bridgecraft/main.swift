@@ -168,7 +168,8 @@ func compilerFlagsForBridgingSource(sourceURL: URL, projectURL: URL, targetName:
             return
         }
 
-        let tokens = line.split(separator: " ")
+        let escapedLine = line.replacingOccurrences(of: "\\ ", with: "##")
+        let tokens = escapedLine.split(separator: " ")
         let pairs = zip(tokens, tokens.dropFirst())
         
         let relevantTokens = pairs
@@ -182,7 +183,8 @@ func compilerFlagsForBridgingSource(sourceURL: URL, projectURL: URL, targetName:
                 }
                 return []
             }
-        
+            .map { $0.replacingOccurrences(of: "##", with: " ") }
+
         compilerFlags = relevantTokens
         stop = true
     }
