@@ -15,6 +15,5 @@ DESC
   s.source = { :http => "https://github.com/lvsti/Bridgecraft/releases/download/#{s.version}/Bridgecraft-#{s.version}.zip" }
   s.preserve_paths = '*'
   s.exclude_files = '**/file.zip'
-  s.platform = :osx, '10.10'
 end
 
