@@ -1,5 +1,7 @@
 # Bridgecraft
 
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/Bridgecraft.svg)](https://cocoapods.org/pods/Bridgecraft)
+
 Bridgecraft (homophone for "witchcraft") is a command line tool for generating the Swift interface for ObjC bridging headers. This comes handy if you have a mixed Swift-ObjC codebase and you want to use code generation tools (e.g. [Sourcery](https://github.com/krzysztofzablocki/Sourcery)) that only support Swift.
 
 ### How it works
@@ -25,6 +27,12 @@ You can invoke Bridgecraft from the shell:
 
 ```
 $ Bridgecraft.app/Contents/MacOS/Bridgecraft <path_to_xcodeproj> <target_name>
+```
+
+If you are using the prebuilt binary either from [Releases](https://github.com/lvsti/Bridgecraft/releases) or via Cocoapods, you'll find the app executable under the `bin` folder. A trampoline script is also included for your convenience:
+
+```
+$ bin/bridgecraft <path_to_xcodeproj> <target_name>
 ```
 
 The generated interface will appear on the standard output.
