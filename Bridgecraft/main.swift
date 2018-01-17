@@ -6,6 +6,7 @@
 //  Copyright © 2018. Tamas Lustyik. All rights reserved.
 //
 
+import Commander
 import Foundation
 import SourceKittenFramework
 import XcodeEditor
@@ -143,14 +144,28 @@ func addBridgingSourceToProject(sourceURL: URL, projectURL: URL, targetName: Str
     project.save()
 }
 
-func compilerFlagsForBridgingSource(sourceURL: URL, projectURL: URL, targetName: String) throws -> [String] {
+func compilerFlagsForBridgingSource(sourceURL: URL,
+                                    projectURL: URL,
+                                    targetName: String,
+                                    sdkOverride: String? = nil,
+                                    destOverride: String? = nil) throws -> [String] {
+    var args = [
+        "clean", "build", "-n",
+        "-project", projectURL.path,
+        "-target", targetName
+    ]
+    
+    if let sdk = sdkOverride {
+        args += ["-sdk", sdk]
+    }
+    
+    if let dest = destOverride {
+        args += ["-destination", dest]
+    }
+    
     let output: String
     do {
-        output = try shell("/usr/bin/xcodebuild", args: [
-            "clean", "build", "-n",
-            "-project", projectURL.path,
-            "-target", targetName
-        ])
+        output = try shell("/usr/bin/xcodebuild", args: args)
     }
     catch {
         printError("cannot dry-run build for \(projectURL.path)")
@@ -258,67 +273,78 @@ func cleanUp(projectURL: URL, sourceURL: URL, preprocessedURL: URL) {
 
 // -----------------------------------------------------------------------------
 
-if CommandLine.arguments.count < 3 {
-    print("Usage: \(CommandLine.arguments.first!) <project_file> <target_name> [options]")
-    print("Options:")
-    print("  --assume-nonnull       Assumes that all headers have been audited for nullability")
-    print("\n")
-    exit(1)
-}
+func main(assumeNonnull: Bool,
+          sdkOverride: [String],
+          destOverride: [String],
+          origProjectPath: String,
+          targetName: String) {
+    let origProjectURL = URL(fileURLWithPath: origProjectPath)
 
-let origProjectURL = URL(fileURLWithPath: CommandLine.arguments[1])
-let targetName = CommandLine.arguments[2]
-let assumeNonnull = CommandLine.arguments.count >= 4 && CommandLine.arguments[3] == "--assume-nonnull"
+    let seed = arc4random() % 100
 
-let seed = arc4random() % 100
+    let projectFolderURL = origProjectURL.deletingLastPathComponent()
+    let sourceURL = projectFolderURL.appendingPathComponent("Bridging-\(seed).m")
+    let preprocessedURL = sourceURL.deletingPathExtension().appendingPathExtension("mi")
 
-let projectFolderURL = origProjectURL.deletingLastPathComponent()
-let sourceURL = projectFolderURL.appendingPathComponent("Bridging-\(seed).m")
-let preprocessedURL = sourceURL.deletingPathExtension().appendingPathExtension("mi")
+    let newName = "\(origProjectURL.deletingPathExtension().lastPathComponent)-\(seed).\(origProjectURL.pathExtension)"
+    let projectURL = origProjectURL.deletingLastPathComponent().appendingPathComponent(newName)
 
-let newName = "\(origProjectURL.deletingPathExtension().lastPathComponent)-\(seed).\(origProjectURL.pathExtension)"
-let projectURL = origProjectURL.deletingLastPathComponent().appendingPathComponent(newName)
+    do {
+        // make a copy of the project
+        try cloneProject(at: origProjectURL, to: projectURL)
+        
+        // get bridging header
+        let headerPath = try bridgingHeaderPath(projectURL: projectURL, targetName: targetName)
+        
+        // generate dummy.m
+        try generateBridgingSource(headerPath: headerPath, sourceURL: sourceURL)
+        
+        // add dummy.m to the scheme's target
+        try addBridgingSourceToProject(sourceURL: sourceURL,
+                                       projectURL: projectURL,
+                                       targetName: targetName)
+        
+        // get relevant compiler flags
+        let compilerFlags = try compilerFlagsForBridgingSource(sourceURL: sourceURL,
+                                                               projectURL: projectURL,
+                                                               targetName: targetName,
+                                                               sdkOverride: sdkOverride.first,
+                                                               destOverride: destOverride.first)
+        
+        // preprocess dummy.m
+        try preprocessBridgingSource(sourceURL: sourceURL,
+                                     compilerFlags: compilerFlags,
+                                     preprocessedURL: preprocessedURL)
+        
+        if assumeNonnull {
+            // add nullability annotations
+            try fixNullability(preprocessedURL: preprocessedURL)
+        }
+        
+        // generate interface with sourcekitten
+        let interface = try generateSwiftInterface(preprocessedURL: preprocessedURL)
 
-do {
-    // make a copy of the project
-    try cloneProject(at: origProjectURL, to: projectURL)
-    
-    // get bridging header
-    let headerPath = try bridgingHeaderPath(projectURL: projectURL, targetName: targetName)
-    
-    // generate dummy.m
-    try generateBridgingSource(headerPath: headerPath, sourceURL: sourceURL)
-    
-    // add dummy.m to the scheme's target
-    try addBridgingSourceToProject(sourceURL: sourceURL,
-                                   projectURL: projectURL,
-                                   targetName: targetName)
-    
-    // get relevant compiler flags
-    let compilerFlags = try compilerFlagsForBridgingSource(sourceURL: sourceURL,
-                                                           projectURL: projectURL,
-                                                           targetName: targetName)
-    
-    // preprocess dummy.m
-    try preprocessBridgingSource(sourceURL: sourceURL,
-                                 compilerFlags: compilerFlags,
-                                 preprocessedURL: preprocessedURL)
-    
-    if assumeNonnull {
-        // add nullability annotations
-        try fixNullability(preprocessedURL: preprocessedURL)
+        // clean up
+        cleanUp(projectURL: projectURL, sourceURL: sourceURL, preprocessedURL: preprocessedURL)
+
+        print("\(interface)")
     }
-    
-    // generate interface with sourcekitten
-    let interface = try generateSwiftInterface(preprocessedURL: preprocessedURL)
-
-    // clean up
-    cleanUp(projectURL: projectURL, sourceURL: sourceURL, preprocessedURL: preprocessedURL)
-
-    print("\(interface)")
+    catch {
+        // clean up
+        cleanUp(projectURL: projectURL, sourceURL: sourceURL, preprocessedURL: preprocessedURL)
+        exit(2)
+    }
 }
-catch {
-    // clean up
-    cleanUp(projectURL: projectURL, sourceURL: sourceURL, preprocessedURL: preprocessedURL)
-    exit(2)
-}
+
+// -----------------------------------------------------------------------------
+
+command(
+    Flag("assume-nonnull", description: "assume that all headers have been audited for nullability"),
+    Options<String>("sdk", default: [], count: 1, description: "override the SDK used for the build (see xcodebuild -sdk)"),
+    Options<String>("destination", default: [], count: 1, description: "override the destination device used for the build (see xcodebuild -destination)"),
+    Argument<String>("project", description: "path to the project file"),
+    Argument<String>("target", description: "name of the target to use"),
+    main
+).run()
+
+
