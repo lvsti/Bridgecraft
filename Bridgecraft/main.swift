@@ -284,7 +284,7 @@ func main(assumeNonnull: Bool,
 
     let projectFolderURL = origProjectURL.deletingLastPathComponent()
     let sourceURL = projectFolderURL.appendingPathComponent("Bridging-\(seed).m")
-    let preprocessedURL = sourceURL.deletingPathExtension().appendingPathExtension("mi")
+    let preprocessedURL = sourceURL.deletingPathExtension().appendingPathExtension("h")
 
     let newName = "\(origProjectURL.deletingPathExtension().lastPathComponent)-\(seed).\(origProjectURL.pathExtension)"
     let projectURL = origProjectURL.deletingLastPathComponent().appendingPathComponent(newName)
