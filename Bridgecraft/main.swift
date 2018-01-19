@@ -244,10 +244,10 @@ func fixNullability(preprocessedURL: URL) throws {
     }
 }
 
-func generateSwiftInterface(preprocessedURL: URL) throws -> String {
+func generateSwiftInterface(preprocessedURL: URL, compilerFlags: [String]) throws -> String {
     let req = Request.interface(file: preprocessedURL.path,
                                 uuid: UUID().uuidString,
-                                arguments: [])
+                                arguments: compilerFlags)
     let result: [String: SourceKitRepresentable]
     do {
         result = try req.failableSend()
@@ -322,7 +322,7 @@ func main(assumeNonnull: Bool,
         }
         
         // generate interface with sourcekitten
-        let interface = try generateSwiftInterface(preprocessedURL: preprocessedURL)
+        let interface = try generateSwiftInterface(preprocessedURL: preprocessedURL, compilerFlags: compilerFlags)
 
         // clean up
         cleanUp(projectURL: projectURL, sourceURL: sourceURL, preprocessedURL: preprocessedURL)
