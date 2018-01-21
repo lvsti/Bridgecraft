@@ -21,25 +21,51 @@ Bridgecraft reproduces the steps needed for the interface generation with some a
 5. preprocesses the dummy by expanding macros and includes (this is where the Xcode command usually fails)
 6. taps into SourceKit and generates the Swift interface
 
+### Installation
+
+- **Binary distribution**
+
+    Download the latest prebuilt binary (*Bridgecraft-A.B.C.zip*) from [Releases](https://github.com/lvsti/Bridgecraft/releases). Unzip the archive and run `bin/bridgecraft`.
+
+- **Cocoapods**
+
+    Add `pod 'Bridgecraft'` to your Podfile and run `pod update Bridgecraft`. This will download the latest release binary and place it in your project's CocoaPods path so you can run it with `$PODS_ROOT/Bridgecraft/bin/bridgecraft`
+
+- **Manual build**
+
+  - *Using Xcode*
+
+        Open `Bridgecraft.xcodeproj` and build the `Bridgecraft` scheme. This will produce the `Bridgecraft.app` artifact in the derived data folder. The executable is under `Bridgecraft.app/Contents/MacOS/Bridgecraft`
+  
+  - *Using the Swift package manager*
+
+        Run `swift build -c release` in the root folder. This will create a `.build/release` folder and produce the `bridgecraft` executable.
+
 ### Usage
 
-You can invoke Bridgecraft from the shell:
+Bridgecraft is a command-line tool without UI, so you can invoke it from the shell:
 
 ```
-$ Bridgecraft.app/Contents/MacOS/Bridgecraft <path_to_xcodeproj> <target_name>
+$ Bridgecraft.app/Contents/MacOS/Bridgecraft <path_to_xcodeproj> <target_name> [options]
 ```
 
-If you are using the prebuilt binary either from [Releases](https://github.com/lvsti/Bridgecraft/releases) or via Cocoapods, you'll find the app executable under the `bin` folder. A trampoline script is also included for your convenience:
+or 
 
 ```
-$ bin/bridgecraft <path_to_xcodeproj> <target_name>
+$ bridgecraft <path_to_xcodeproj> <target_name> [options]
 ```
 
-The generated interface will appear on the standard output.
+depending on which build method you used. The generated interface will appear on the **standard output**.
+
+For available options run:
+
+```
+$ bridgecraft --help
+```
 
 ### Requirements
 
-To build: Xcode 9.2, Swift 4, Carthage<br/>
+To build: Xcode 9.2, Swift 4<br/>
 To run: macOS 10.10
 
 ### Caveats and known issues
