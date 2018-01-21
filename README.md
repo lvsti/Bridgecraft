@@ -35,11 +35,11 @@ Bridgecraft reproduces the steps needed for the interface generation with some a
 
   - *Using Xcode*
 
-        Open `Bridgecraft.xcodeproj` and build the `Bridgecraft` scheme. This will produce the `Bridgecraft.app` artifact in the derived data folder. The executable is under `Bridgecraft.app/Contents/MacOS/Bridgecraft`
+      Open `Bridgecraft.xcodeproj` and build the `Bridgecraft` scheme. This will produce the `Bridgecraft.app` artifact in the derived data folder. The executable is under `Bridgecraft.app/Contents/MacOS/Bridgecraft`
   
   - *Using the Swift package manager*
 
-        Run `swift build -c release` in the root folder. This will create a `.build/release` folder and produce the `bridgecraft` executable.
+      Run `swift build -c release` in the root folder. This will create a `.build/release` folder and produce the `bridgecraft` executable.
 
 ### Usage
 
