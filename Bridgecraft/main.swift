@@ -11,6 +11,7 @@ import Foundation
 import SourceKittenFramework
 import XcodeEditor
 
+let version = "0.0.5"
 
 enum BridgecraftError: Error {
     case unknown
@@ -327,6 +328,13 @@ func main(assumeNonnull: Bool,
         // clean up
         cleanUp(projectURL: projectURL, sourceURL: sourceURL, preprocessedURL: preprocessedURL)
 
+        let header =
+            """
+            // Generated using Bridgecraft \(version) - https://github.com/lvsti/Bridgecraft
+            // DO NOT EDIT
+            """
+        
+        print("\(header)\n")
         print("\(interface)")
     }
     catch {
@@ -345,6 +353,6 @@ command(
     Argument<String>("project", description: "path to the project file"),
     Argument<String>("target", description: "name of the target to use"),
     main
-).run()
+).run(version)
 
 
