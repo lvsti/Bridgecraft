@@ -77,6 +77,7 @@
 		E8834B23200FE8DC005DCD59 /* ArgumentConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgumentConvertible.swift; path = Carthage/Checkouts/Commander/Sources/Commander/ArgumentConvertible.swift; sourceTree = SOURCE_ROOT; };
 		E8834B24200FE8DC005DCD59 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Group.swift; path = Carthage/Checkouts/Commander/Sources/Commander/Group.swift; sourceTree = SOURCE_ROOT; };
 		E8834B25200FE8DD005DCD59 /* CommandRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommandRunner.swift; path = Carthage/Checkouts/Commander/Sources/Commander/CommandRunner.swift; sourceTree = SOURCE_ROOT; };
+		E892C10D201499CC00BED02B /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +108,7 @@
 			children = (
 				E81068A4200967E800229277 /* Cartfile */,
 				E81068BF200970DA00229277 /* LICENSE */,
+				E892C10D201499CC00BED02B /* Package.swift */,
 				E8834B04200FE887005DCD59 /* External */,
 				E8106895200966D600229277 /* Bridgecraft */,
 				E8106894200966D600229277 /* Products */,
