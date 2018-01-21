@@ -88,12 +88,12 @@ func bridgingHeaderPath(projectURL: URL, targetName: String) throws -> String {
         }
     }
     
-    guard headerPath != nil else {
+    guard let headerPathUnwrapped = headerPath else {
         printError("bridging header setting not found in project")
         throw BridgecraftError.unknown
     }
     
-    return headerPath!
+    return headerPathUnwrapped
 }
 
 func generateBridgingSource(headerPath: String, sourceURL: URL) throws {
@@ -204,12 +204,12 @@ func compilerFlagsForBridgingSource(sourceURL: URL,
         stop = true
     }
 
-    guard compilerFlags != nil else {
+    guard let compilerFlagsUnwrapped = compilerFlags else {
         printError("cannot parse compiler flags")
         throw BridgecraftError.unknown
     }
 
-    return compilerFlags!
+    return compilerFlagsUnwrapped
 }
 
 func preprocessBridgingSource(sourceURL: URL, compilerFlags: [String], preprocessedURL: URL) throws {
