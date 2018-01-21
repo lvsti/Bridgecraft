@@ -266,6 +266,29 @@ func generateSwiftInterface(preprocessedURL: URL, compilerFlags: [String]) throw
     return srcText
 }
 
+func writeGeneratedInterfaceToFile(interface: String, destinationURL: URL?) throws {
+    let header =
+        """
+        // Generated using Bridgecraft \(version) - https://github.com/lvsti/Bridgecraft
+        // DO NOT EDIT
+        """
+
+    let output = "\(header)\n\n\(interface)"
+    
+    if let url = destinationURL {
+        do {
+            try output.write(to: url, atomically: true, encoding: .utf8)
+        }
+        catch {
+            printError("cannot write output to \(url): \(error)")
+            throw BridgecraftError.unknown
+        }
+    }
+    else {
+        print("\(output)")
+    }
+}
+
 func cleanUp(projectURL: URL, sourceURL: URL, preprocessedURL: URL) {
     _ = try? FileManager.default.removeItem(at: projectURL)
     _ = try? FileManager.default.removeItem(at: sourceURL)
@@ -277,6 +300,7 @@ func cleanUp(projectURL: URL, sourceURL: URL, preprocessedURL: URL) {
 func main(assumeNonnull: Bool,
           sdkOverride: [String],
           destOverride: [String],
+          outputPath: [String],
           origProjectPath: String,
           targetName: String) {
     let origProjectURL = URL(fileURLWithPath: origProjectPath)
@@ -286,6 +310,13 @@ func main(assumeNonnull: Bool,
     let projectFolderURL = origProjectURL.deletingLastPathComponent()
     let sourceURL = projectFolderURL.appendingPathComponent("Bridging-\(seed).m")
     let preprocessedURL = sourceURL.deletingPathExtension().appendingPathExtension("h")
+    let destinationURL: URL?
+    if let path = outputPath.first {
+        destinationURL = URL(fileURLWithPath: path)
+    }
+    else {
+        destinationURL = nil
+    }
 
     let newName = "\(origProjectURL.deletingPathExtension().lastPathComponent)-\(seed).\(origProjectURL.pathExtension)"
     let projectURL = origProjectURL.deletingLastPathComponent().appendingPathComponent(newName)
@@ -328,14 +359,7 @@ func main(assumeNonnull: Bool,
         // clean up
         cleanUp(projectURL: projectURL, sourceURL: sourceURL, preprocessedURL: preprocessedURL)
 
-        let header =
-            """
-            // Generated using Bridgecraft \(version) - https://github.com/lvsti/Bridgecraft
-            // DO NOT EDIT
-            """
-        
-        print("\(header)\n")
-        print("\(interface)")
+        try writeGeneratedInterfaceToFile(interface: interface, destinationURL: destinationURL)
     }
     catch {
         // clean up
@@ -350,6 +374,7 @@ command(
     Flag("assume-nonnull", description: "assume that all headers have been audited for nullability"),
     Options<String>("sdk", default: [], count: 1, description: "override the SDK used for the build (see xcodebuild -sdk)"),
     Options<String>("destination", default: [], count: 1, description: "override the destination device used for the build (see xcodebuild -destination)"),
+    Options<String>("output", default: [], flag: "o", count: 1, description: "write the generated interface into the given file instead of the standard output"),
     Argument<String>("project", description: "path to the project file"),
     Argument<String>("target", description: "name of the target to use"),
     main
