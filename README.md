@@ -55,7 +55,7 @@ or
 $ bridgecraft <path_to_xcodeproj> <target_name> [options]
 ```
 
-depending on which build method you used. The generated interface will appear on the **standard output**.
+depending on which build method you used. By default, the generated interface will appear on the standard output.
 
 For available options run:
 
