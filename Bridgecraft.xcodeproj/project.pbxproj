@@ -16,6 +16,7 @@
 		E81068AF2009690800229277 /* Yams.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068A8200968FD00229277 /* Yams.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E81068BD20096AE400229277 /* XcodeEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81068BC20096AE400229277 /* XcodeEditor.framework */; };
 		E81068BE20096AE900229277 /* XcodeEditor.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068BC20096AE400229277 /* XcodeEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E87A0EF52017EC970017C82B /* GenerateCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87A0EF42017EC970017C82B /* GenerateCommand.swift */; };
 		E87A0EF72017ECF60017C82B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87A0EF62017ECF60017C82B /* Utils.swift */; };
 		E8834AF5200FE72D005DCD59 /* Commander.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8834AEE200FE72D005DCD59 /* Commander.framework */; };
 		E8834AF6200FE72D005DCD59 /* Commander.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8834AEE200FE72D005DCD59 /* Commander.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -67,6 +68,7 @@
 		E81068A8200968FD00229277 /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Yams.framework; path = Carthage/Build/Mac/Yams.framework; sourceTree = "<group>"; };
 		E81068BC20096AE400229277 /* XcodeEditor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeEditor.framework; path = Carthage/Build/Mac/XcodeEditor.framework; sourceTree = "<group>"; };
 		E81068BF200970DA00229277 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		E87A0EF42017EC970017C82B /* GenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCommand.swift; sourceTree = "<group>"; };
 		E87A0EF62017ECF60017C82B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E8834AEE200FE72D005DCD59 /* Commander.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Commander.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8834B07200FE887005DCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			children = (
 				E8106896200966D600229277 /* main.swift */,
 				E810689D200966D600229277 /* Info.plist */,
+				E87A0EF42017EC970017C82B /* GenerateCommand.swift */,
 				E87A0EF62017ECF60017C82B /* Utils.swift */,
 			);
 			path = Bridgecraft;
@@ -293,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E87A0EF52017EC970017C82B /* GenerateCommand.swift in Sources */,
 				E8106897200966D600229277 /* main.swift in Sources */,
 				E87A0EF72017ECF60017C82B /* Utils.swift in Sources */,
 			);
