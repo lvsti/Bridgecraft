@@ -1,3 +1,3 @@
 github "jpsim/SourceKitten"
-github "appsquickly/XcodeEditor" "master"
 github "kylef/Commander"
+github "tomlokhorst/XcodeEdit" ~> 2.1.0
