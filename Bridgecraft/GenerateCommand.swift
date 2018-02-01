@@ -305,7 +305,7 @@ struct GenerateCommand {
                                     arguments: compilerFlags)
         let result: [String: SourceKitRepresentable]
         do {
-            result = try req.send()
+            result = try req.failableSend()
         }
         catch {
             printError("failed to generate interface for \(preprocessedURL.path): \(error)")
