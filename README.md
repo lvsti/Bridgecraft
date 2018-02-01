@@ -4,8 +4,6 @@
 
 Bridgecraft (homophone for "witchcraft") is a command line tool for generating the Swift interface for ObjC bridging headers. This comes handy if you have a mixed Swift-ObjC codebase and you want to use code generation tools (e.g. [Sourcery](https://github.com/krzysztofzablocki/Sourcery)) that only support Swift.
 
-NOTE: although the interface generation works, the tool is still in concept phase, see [this issue](https://github.com/lvsti/Bridgecraft/issues/11).
-
 ### How it works
 
 Xcode already supports generating a Swift interface for any ObjC source file:
@@ -54,18 +52,23 @@ Bridgecraft reproduces the steps needed for the interface generation with some a
 Bridgecraft is a command-line tool without UI, so you can invoke it from the shell:
 
 ```
-$ Bridgecraft.app/Contents/MacOS/Bridgecraft <path_to_xcodeproj> <target_name> [options]
+$ Bridgecraft.app/Contents/MacOS/Bridgecraft <command> ...
 ```
 
 or 
 
 ```
-$ bridgecraft <path_to_xcodeproj> <target_name> [options]
+$ bridgecraft <command> ...
 ```
 
-depending on which build method you used. By default, the generated interface will appear on the standard output.
+depending on which build method you used.
 
-For available options run:
+Available commands:
+
+- `generate`: generates the Swift interface from an ObjC bridging header
+- `patch`: injects a Swift source file into an Xcode project
+
+For details and available options run:
 
 ```
 $ bridgecraft --help
