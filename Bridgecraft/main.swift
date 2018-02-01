@@ -9,7 +9,7 @@
 import Commander
 import Foundation
 
-let version = "0.0.5"
+let version = "0.1.0"
 
 let generate = command(
     Flag("assume-nonnull", description: "assume that all headers have been audited for nullability"),
