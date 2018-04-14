@@ -85,7 +85,7 @@ To run: macOS 10.10
 - If your target platform is iOS/tvOS/watchOS, chances are the command will fail because it will try to build for the device instead of the simulator. As a workaround, specify the `--sdk` and `--destination` options with the usual values, e.g. 
 
     ```
-    $ bridgecraft <path_to_xcodeproj> <target_name> \
+    $ bridgecraft generate <path_to_xcodeproj> <target_name> \
         --sdk iphonesimulator \
         --destination 'platform=iOS Simulator,name=iPhone 6,OS=latest'
     ```
