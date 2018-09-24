@@ -204,10 +204,15 @@ struct GenerateCommand {
     }
     
     private func compilerFlagsForBridgingSource() throws -> [String] {
+        
+        // The flag -UseModernBuildSystem=0 is needed because when running xcodebuild with the option -dry-run
+        // It throws the following error
+        // error: -dry-run is not yet supported in the new build system
         var args = [
-            "clean", "build", "-n",
+            "clean", "build", "-dry-run",
             "-project", tempProjectURL.path,
-            "-target", targetName
+            "-target", targetName,
+            "-UseModernBuildSystem=0" // TODO: remove -UseModernBuildSystem=0 once the new build system supports -dry-run
         ]
         
         if let sdk = sdkOverride {
