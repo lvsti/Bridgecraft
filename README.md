@@ -76,7 +76,7 @@ $ bridgecraft --help
 
 ### Requirements
 
-To build: Xcode 9.2, Swift 4<br/>
+To build: Xcode 10, Swift 4.2<br/>
 To run: macOS 10.10
 
 ### Caveats and known issues
