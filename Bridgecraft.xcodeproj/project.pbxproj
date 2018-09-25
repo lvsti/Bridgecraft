@@ -14,8 +14,8 @@
 		E81068AD2009690800229277 /* SourceKittenFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068A6200968FC00229277 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E81068AE2009690800229277 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068A7200968FC00229277 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E81068AF2009690800229277 /* Yams.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068A8200968FD00229277 /* Yams.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E81068BD20096AE400229277 /* XcodeEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81068BC20096AE400229277 /* XcodeEditor.framework */; };
-		E81068BE20096AE900229277 /* XcodeEditor.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E81068BC20096AE400229277 /* XcodeEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E87A0EDB2017D0000017C82B /* XcodeEdit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87A0EDA2017D0000017C82B /* XcodeEdit.framework */; };
+		E87A0EDC2017D8CB0017C82B /* XcodeEdit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E87A0EDA2017D0000017C82B /* XcodeEdit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E87A0EF52017EC970017C82B /* GenerateCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87A0EF42017EC970017C82B /* GenerateCommand.swift */; };
 		E87A0EF72017ECF60017C82B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87A0EF62017ECF60017C82B /* Utils.swift */; };
 		E87A0EF92017EE380017C82B /* PatchCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87A0EF82017EE380017C82B /* PatchCommand.swift */; };
@@ -51,8 +51,8 @@
 			files = (
 				E81068AD2009690800229277 /* SourceKittenFramework.framework in CopyFiles */,
 				E8834AF6200FE72D005DCD59 /* Commander.framework in CopyFiles */,
+				E87A0EDC2017D8CB0017C82B /* XcodeEdit.framework in CopyFiles */,
 				E81068AE2009690800229277 /* SWXMLHash.framework in CopyFiles */,
-				E81068BE20096AE900229277 /* XcodeEditor.framework in CopyFiles */,
 				E81068AF2009690800229277 /* Yams.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,11 +67,11 @@
 		E81068A6200968FC00229277 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SourceKittenFramework.framework; path = Carthage/Build/Mac/SourceKittenFramework.framework; sourceTree = "<group>"; };
 		E81068A7200968FC00229277 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/Mac/SWXMLHash.framework; sourceTree = "<group>"; };
 		E81068A8200968FD00229277 /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Yams.framework; path = Carthage/Build/Mac/Yams.framework; sourceTree = "<group>"; };
-		E81068BC20096AE400229277 /* XcodeEditor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeEditor.framework; path = Carthage/Build/Mac/XcodeEditor.framework; sourceTree = "<group>"; };
 		E81068BF200970DA00229277 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E87A0EF42017EC970017C82B /* GenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCommand.swift; sourceTree = "<group>"; };
 		E87A0EF62017ECF60017C82B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E87A0EF82017EE380017C82B /* PatchCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchCommand.swift; sourceTree = "<group>"; };
+		E87A0EDA2017D0000017C82B /* XcodeEdit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeEdit.framework; path = Carthage/Build/Mac/XcodeEdit.framework; sourceTree = "<group>"; };
 		E8834AEE200FE72D005DCD59 /* Commander.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Commander.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8834B07200FE887005DCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8834B1D200FE8DC005DCD59 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Command.swift; path = Carthage/Checkouts/Commander/Sources/Commander/Command.swift; sourceTree = SOURCE_ROOT; };
@@ -91,10 +91,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E81068BD20096AE400229277 /* XcodeEditor.framework in Frameworks */,
 				E8834AF5200FE72D005DCD59 /* Commander.framework in Frameworks */,
 				E81068A9200968FD00229277 /* SourceKittenFramework.framework in Frameworks */,
 				E81068AA200968FD00229277 /* SWXMLHash.framework in Frameworks */,
+				E87A0EDB2017D0000017C82B /* XcodeEdit.framework in Frameworks */,
 				E81068AB200968FD00229277 /* Yams.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,7 +146,7 @@
 		E81068A5200968FC00229277 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E81068BC20096AE400229277 /* XcodeEditor.framework */,
+				E87A0EDA2017D0000017C82B /* XcodeEdit.framework */,
 				E81068A6200968FC00229277 /* SourceKittenFramework.framework */,
 				E81068A7200968FC00229277 /* SWXMLHash.framework */,
 				E81068A8200968FD00229277 /* Yams.framework */,
