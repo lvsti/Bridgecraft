@@ -35,7 +35,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/kylef/Commander.git", from: "0.8.0"),
-        .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.20.0"),
+        .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.21.2"),
         .package(url: "https://github.com/appsquickly/XcodeEditor.git", .branch("master")),
     ],
     targets: [
