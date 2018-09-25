@@ -8,7 +8,7 @@
 
 import Foundation
 import SourceKittenFramework
-import XcodeEditor
+import XcodeEdit
 
 extension GenerateCommand {
     static func execute(assumeNonnull: Bool,
@@ -167,40 +167,60 @@ struct GenerateCommand {
     }
 
     private func addBridgingSourceToProject() throws {
-        guard let project = XCProject(filePath: tempProjectURL.path) else {
+        let projectFile: XCProjectFile
+        do {
+            projectFile = try XCProjectFile(xcodeprojURL: tempProjectURL)
+        }
+        catch {
             printError("cannot load project at \(tempProjectURL.path)")
             throw BridgecraftError.unknown
         }
-        
-        let data: Data
-        do {
-            data = try Data(contentsOf: bridgingSourceURL, options: [])
+
+        guard let target = projectFile.project.targets.first(where: { $0.value?.name == targetName })?.value else {
+            printError("cannot find target \(targetName)")
+            throw BridgecraftError.unknown
         }
-        catch {
-            printError("cannot load bridging source at \(tempProjectURL.path): \(error)")
-            throw error
-        }
-        
+
         let fileName = bridgingSourceURL.lastPathComponent
-        let sourceFileDef = XCSourceFileDefinition(name: fileName,
-                                                   data: data,
-                                                   type: .SourceCodeObjC)
         
-        let group = project.mainGroup()
-        group?.addSourceFile(sourceFileDef)
-        
-        guard let sourceFile = project.file(withName: fileName) else {
+        guard
+            let mainGroup = projectFile.project.mainGroup.value,
+            let fileRef = try? projectFile.createFileReference(path: fileName,
+                                                               name: fileName,
+                                                               sourceTree: .group,
+                                                               lastKnownFileType: kUTTypeObjectiveCSource as String)
+        else {
             printError("cannot add source file to project")
             throw BridgecraftError.unknown
         }
         
-        guard let target = project.target(withName: targetName) else {
-            printError("cannot find target \(targetName)")
+        let xcFileRef = projectFile.addReference(value: fileRef)
+        mainGroup.insertFileReference(xcFileRef, at: 0)
+
+        let buildFile: PBXBuildFile
+        do {
+            buildFile = try projectFile.createBuildFile(fileReference: xcFileRef)
+        }
+        catch {
+            printError("cannot add build file to project")
             throw BridgecraftError.unknown
         }
-        target.addMember(sourceFile)
+
+        guard let sources = target.buildPhases.compactMap({ $0.value as? PBXSourcesBuildPhase }).first else {
+            printError("compile sources build phase not found")
+            throw BridgecraftError.unknown
+        }
+
+        let xcBuildFileRef = projectFile.addReference(value: buildFile)
+        sources.insertFile(xcBuildFileRef, at: 0)
         
-        project.save()
+        do {
+            try projectFile.write(to: tempProjectURL)
+        }
+        catch {
+            printError("cannot save project")
+            throw BridgecraftError.unknown
+        }
     }
     
     private func compilerFlagsForBridgingSource() throws -> [String] {
