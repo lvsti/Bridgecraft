@@ -102,11 +102,14 @@ struct GenerateCommand {
             // generate interface with sourcekitten
             let interface = try generateSwiftInterface(withCompilerFlags: compilerFlags)
             
+            // strip default values
+            let cleanedInterface = keepDefaults ? interface : stripDefaultValues(from: interface)
+            
             // clean up
             cleanUp()
             
             // write results
-            try writeGeneratedInterfaceToFile(interface: interface)
+            try writeGeneratedInterfaceToFile(interface: cleanedInterface)
         }
         catch {
             // clean up
@@ -348,6 +351,10 @@ struct GenerateCommand {
         }
         
         return srcText
+    }
+    
+    private func stripDefaultValues(from interface: String) -> String {
+        return interface.replacingOccurrences(of: " = nil", with: "")
     }
     
     private func writeGeneratedInterfaceToFile(interface: String) throws {
