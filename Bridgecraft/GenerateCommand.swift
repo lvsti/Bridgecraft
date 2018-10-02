@@ -12,12 +12,14 @@ import XcodeEdit
 
 extension GenerateCommand {
     static func execute(assumeNonnull: Bool,
+                        keepDefaults: Bool,
                         sdkOverride: [String],
                         destOverride: [String],
                         outputPath: [String],
                         origProjectPath: String,
                         targetName: String) {
         let cmd = GenerateCommand(assumeNonnull: assumeNonnull,
+                                  keepDefaults: keepDefaults,
                                   sdkOverride: sdkOverride,
                                   destOverride: destOverride,
                                   outputPath: outputPath,
@@ -35,17 +37,20 @@ struct GenerateCommand {
     private let outputFileURL: URL?
     
     private let assumeNonnull: Bool
+    private let keepDefaults: Bool
     private let sdkOverride: String?
     private let destOverride: String?
     private let targetName: String
     
     init(assumeNonnull: Bool,
+         keepDefaults: Bool,
          sdkOverride: [String],
          destOverride: [String],
          outputPath: [String],
          origProjectPath: String,
          targetName: String) {
         self.assumeNonnull = assumeNonnull
+        self.keepDefaults = keepDefaults
         self.sdkOverride = sdkOverride.first
         self.destOverride = destOverride.first
         self.targetName = targetName
