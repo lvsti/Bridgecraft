@@ -26,10 +26,13 @@ func shell(_ command: String, args: [String], verbose: Bool = false) throws -> S
     
     ps.launch()
     
-    ps.waitUntilExit()
-    
-    let outputPipeResult = outputPipe.fileHandleForReading.readDataToEndOfFile()
-    let errorPipeResult = errorPipe.fileHandleForReading.readDataToEndOfFile()
+    var outputPipeResult = Data()
+    var errorPipeResult = Data()
+
+    while ps.isRunning {
+        outputPipeResult.append(outputPipe.fileHandleForReading.readDataToEndOfFile())
+        errorPipeResult.append(errorPipe.fileHandleForReading.readDataToEndOfFile())
+    }
     
     guard
         let output = String(data: outputPipeResult, encoding: String.Encoding.utf8),
