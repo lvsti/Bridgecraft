@@ -54,7 +54,7 @@ func shell(_ command: String, args: [String], verbose: Bool = false) throws -> S
     if verbose {
         print("\(command) \(args.joined(separator: " "))")
         print(output)
-        print(error)
+        printError(error)
     }
     
     return output
