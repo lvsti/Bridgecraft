@@ -19,31 +19,37 @@ func shell(_ command: String, args: [String], verbose: Bool = false) throws -> S
     ps.launchPath = command
     ps.arguments = args
     
-    let pipe = Pipe()
-    ps.standardOutput = pipe
-    // We associate a dummy Pipe to the Process.standardError
-    // to prevent the Process from printing the short error description to the terminal
-    // since now we are printing the full error description
-    ps.standardError = Pipe()
+    let outputPipe = Pipe()
+    let errorPipe = Pipe()
+    ps.standardOutput = outputPipe
+    ps.standardError = errorPipe
     
     ps.launch()
     
     ps.waitUntilExit()
     
-    let buffer = pipe.fileHandleForReading.readDataToEndOfFile()
+    let outputPipeResult = outputPipe.fileHandleForReading.readDataToEndOfFile()
+    let errorPipeResult = errorPipe.fileHandleForReading.readDataToEndOfFile()
     
-    guard let output = String(data: buffer, encoding: String.Encoding.utf8) else {
-        printError("\(command) \(args.joined(separator: " "))\nError parsing the output of the previous command.")
+    guard let output = String(data: outputPipeResult, encoding: String.Encoding.utf8),
+    let error = String(data: errorPipeResult, encoding: String.Encoding.utf8) else {
+        printError("\(command) \(args.joined(separator: " "))")
+        printError("Error parsing the output of the previous command.")
         throw BridgecraftError.unknown
     }
     
     guard ps.terminationStatus == 0 else {
-        printError("\(command) \(args.joined(separator: " "))\nTerminated with the status \(ps.terminationStatus).\n\(output)")
+        printError("\(command) \(args.joined(separator: " "))")
+        printError("Terminated with the status \(ps.terminationStatus).")
+        printError(output)
+        printError(error)
         throw BridgecraftError.unknown
     }
     
     if verbose {
-        print("\(command) \(args.joined(separator: " "))\n\(output)")
+        print("\(command) \(args.joined(separator: " "))")
+        print(output)
+        print(error)
     }
     
     return output
