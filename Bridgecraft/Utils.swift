@@ -15,10 +15,6 @@ enum BridgecraftError: Error {
 @discardableResult
 func shell(_ command: String, args: [String], verbose: Bool = false) throws -> String {
     
-    if verbose {
-        print("\(command) \(args.joined(separator: " "))")
-    }
-    
     let ps = Process()
     ps.launchPath = command
     ps.arguments = args
@@ -28,17 +24,22 @@ func shell(_ command: String, args: [String], verbose: Bool = false) throws -> S
     
     ps.launch()
     
-    var buffer = Data()
-    while ps.isRunning {
-        buffer.append(pipe.fileHandleForReading.readDataToEndOfFile())
+    ps.waitUntilExit()
+    
+    let buffer = pipe.fileHandleForReading.readDataToEndOfFile()
+    
+    guard let output = String(data: buffer, encoding: String.Encoding.utf8) else {
+        printError("\(command) \(args.joined(separator: " "))\nError parsing the output of the previous command.")
+        throw BridgecraftError.unknown
     }
     
     guard ps.terminationStatus == 0 else {
+        printError("\(command) \(args.joined(separator: " "))\nTerminated with the status \(ps.terminationStatus).\n\(output)")
         throw BridgecraftError.unknown
     }
     
-    guard let output = String(data: buffer, encoding: String.Encoding.utf8) else {
-        throw BridgecraftError.unknown
+    if verbose {
+        print("\(command) \(args.joined(separator: " "))\n\(output)")
     }
     
     return output
