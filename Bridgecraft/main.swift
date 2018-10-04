@@ -14,6 +14,7 @@ let version = "0.3.0"
 let generate = command(
     Flag("assume-nonnull", description: "assume that all headers have been audited for nullability"),
     Flag("keep-defaults", description: "do not strip default values (typically in the form of '= nil') from the generated header"),
+    Flag("verbose", description: "outputs all terminal commands and their results"),
     Options<String>("sdk", default: [], count: 1, description: "override the SDK used for the build (see xcodebuild -sdk)"),
     Options<String>("destination", default: [], count: 1, description: "override the destination device used for the build (see xcodebuild -destination)"),
     Options<String>("output", default: [], flag: "o", count: 1, description: "write the generated interface into the given file instead of the standard output"),

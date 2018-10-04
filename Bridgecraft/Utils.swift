@@ -13,27 +13,48 @@ enum BridgecraftError: Error {
 }
 
 @discardableResult
-func shell(_ command: String, args: [String]) throws -> String {
+func shell(_ command: String, args: [String], verbose: Bool = false) throws -> String {
+    
     let ps = Process()
     ps.launchPath = command
     ps.arguments = args
     
-    let pipe = Pipe()
-    ps.standardOutput = pipe
+    let outputPipe = Pipe()
+    let errorPipe = Pipe()
+    ps.standardOutput = outputPipe
+    ps.standardError = errorPipe
     
     ps.launch()
     
-    var buffer = Data()
+    var outputPipeResult = Data()
+    var errorPipeResult = Data()
+
     while ps.isRunning {
-        buffer.append(pipe.fileHandleForReading.readDataToEndOfFile())
+        outputPipeResult.append(outputPipe.fileHandleForReading.readDataToEndOfFile())
+        errorPipeResult.append(errorPipe.fileHandleForReading.readDataToEndOfFile())
+    }
+    
+    guard
+        let output = String(data: outputPipeResult, encoding: String.Encoding.utf8),
+        let error = String(data: errorPipeResult, encoding: String.Encoding.utf8)
+        else {
+            printError("\(command) \(args.joined(separator: " "))")
+            printError("Error parsing the output of the previous command.")
+            throw BridgecraftError.unknown
     }
     
     guard ps.terminationStatus == 0 else {
+        printError("\(command) \(args.joined(separator: " "))")
+        printError("Terminated with the status \(ps.terminationStatus).")
+        printError(output)
+        printError(error)
         throw BridgecraftError.unknown
     }
     
-    guard let output = String(data: buffer, encoding: String.Encoding.utf8) else {
-        throw BridgecraftError.unknown
+    if verbose {
+        print("\(command) \(args.joined(separator: " "))")
+        print(output)
+        printError(error)
     }
     
     return output
