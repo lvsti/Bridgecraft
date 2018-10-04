@@ -21,6 +21,10 @@ func shell(_ command: String, args: [String], verbose: Bool = false) throws -> S
     
     let pipe = Pipe()
     ps.standardOutput = pipe
+    // We associate a dummy Pipe to the Process.standardError
+    // to prevent the Process from printing the short error description to the terminal
+    // since now we are printing the full error description
+    ps.standardError = Pipe()
     
     ps.launch()
     
