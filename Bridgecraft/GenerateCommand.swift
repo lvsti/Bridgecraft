@@ -11,15 +11,17 @@ import SourceKittenFramework
 import XcodeEdit
 
 extension GenerateCommand {
-    static func execute(verbose: Bool,
-                        assumeNonnull: Bool,
+    static func execute(assumeNonnull: Bool,
+                        keepDefaults: Bool,
+                        verbose: Bool,
                         sdkOverride: [String],
                         destOverride: [String],
                         outputPath: [String],
                         origProjectPath: String,
                         targetName: String) {
-        let cmd = GenerateCommand(verbose: verbose,
-                                  assumeNonnull: assumeNonnull,
+        let cmd = GenerateCommand(assumeNonnull: assumeNonnull,
+                                  keepDefaults: keepDefaults,
+                                  verbose: verbose,
                                   sdkOverride: sdkOverride,
                                   destOverride: destOverride,
                                   outputPath: outputPath,
@@ -36,21 +38,24 @@ struct GenerateCommand {
     private let preprocessedURL: URL
     private let outputFileURL: URL?
     
-    private let verbose: Bool
     private let assumeNonnull: Bool
+    private let keepDefaults: Bool
+    private let verbose: Bool
     private let sdkOverride: String?
     private let destOverride: String?
     private let targetName: String
     
-    init(verbose: Bool,
-         assumeNonnull: Bool,
+    init(assumeNonnull: Bool,
+         keepDefaults: Bool,
+         verbose: Bool,
          sdkOverride: [String],
          destOverride: [String],
          outputPath: [String],
          origProjectPath: String,
          targetName: String) {
-        self.verbose = verbose
         self.assumeNonnull = assumeNonnull
+        self.keepDefaults = keepDefaults
+        self.verbose = verbose
         self.sdkOverride = sdkOverride.first
         self.destOverride = destOverride.first
         self.targetName = targetName
@@ -102,11 +107,14 @@ struct GenerateCommand {
             // generate interface with sourcekitten
             let interface = try generateSwiftInterface(withCompilerFlags: compilerFlags)
             
+            // strip default values
+            let cleanedInterface = keepDefaults ? interface : stripDefaultValues(from: interface)
+            
             // clean up
             cleanUp()
             
             // write results
-            try writeGeneratedInterfaceToFile(interface: interface)
+            try writeGeneratedInterfaceToFile(interface: cleanedInterface)
         }
         catch {
             // clean up
@@ -348,6 +356,10 @@ struct GenerateCommand {
         }
         
         return srcText
+    }
+    
+    private func stripDefaultValues(from interface: String) -> String {
+        return interface.replacingOccurrences(of: " = nil", with: "")
     }
     
     private func writeGeneratedInterfaceToFile(interface: String) throws {
