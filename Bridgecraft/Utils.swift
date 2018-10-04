@@ -13,7 +13,12 @@ enum BridgecraftError: Error {
 }
 
 @discardableResult
-func shell(_ command: String, args: [String]) throws -> String {
+func shell(_ command: String, args: [String], verbose: Bool = false) throws -> String {
+    
+    if verbose {
+        print("\(command) \(args.joined(separator: " "))")
+    }
+    
     let ps = Process()
     ps.launchPath = command
     ps.arguments = args
