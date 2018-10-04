@@ -31,11 +31,13 @@ func shell(_ command: String, args: [String], verbose: Bool = false) throws -> S
     let outputPipeResult = outputPipe.fileHandleForReading.readDataToEndOfFile()
     let errorPipeResult = errorPipe.fileHandleForReading.readDataToEndOfFile()
     
-    guard let output = String(data: outputPipeResult, encoding: String.Encoding.utf8),
-    let error = String(data: errorPipeResult, encoding: String.Encoding.utf8) else {
-        printError("\(command) \(args.joined(separator: " "))")
-        printError("Error parsing the output of the previous command.")
-        throw BridgecraftError.unknown
+    guard
+        let output = String(data: outputPipeResult, encoding: String.Encoding.utf8),
+        let error = String(data: errorPipeResult, encoding: String.Encoding.utf8)
+        else {
+            printError("\(command) \(args.joined(separator: " "))")
+            printError("Error parsing the output of the previous command.")
+            throw BridgecraftError.unknown
     }
     
     guard ps.terminationStatus == 0 else {
