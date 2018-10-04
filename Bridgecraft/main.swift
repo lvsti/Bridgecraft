@@ -12,6 +12,7 @@ import Foundation
 let version = "0.3.0"
 
 let generate = command(
+    Flag("verbose", description: "output's all terminal commands and their results"),
     Flag("assume-nonnull", description: "assume that all headers have been audited for nullability"),
     Options<String>("sdk", default: [], count: 1, description: "override the SDK used for the build (see xcodebuild -sdk)"),
     Options<String>("destination", default: [], count: 1, description: "override the destination device used for the build (see xcodebuild -destination)"),

@@ -11,13 +11,15 @@ import SourceKittenFramework
 import XcodeEdit
 
 extension GenerateCommand {
-    static func execute(assumeNonnull: Bool,
+    static func execute(verbose: Bool,
+                        assumeNonnull: Bool,
                         sdkOverride: [String],
                         destOverride: [String],
                         outputPath: [String],
                         origProjectPath: String,
                         targetName: String) {
-        let cmd = GenerateCommand(assumeNonnull: assumeNonnull,
+        let cmd = GenerateCommand(verbose: verbose,
+                                  assumeNonnull: assumeNonnull,
                                   sdkOverride: sdkOverride,
                                   destOverride: destOverride,
                                   outputPath: outputPath,
@@ -34,17 +36,20 @@ struct GenerateCommand {
     private let preprocessedURL: URL
     private let outputFileURL: URL?
     
+    private let verbose: Bool
     private let assumeNonnull: Bool
     private let sdkOverride: String?
     private let destOverride: String?
     private let targetName: String
     
-    init(assumeNonnull: Bool,
+    init(verbose: Bool,
+         assumeNonnull: Bool,
          sdkOverride: [String],
          destOverride: [String],
          outputPath: [String],
          origProjectPath: String,
          targetName: String) {
+        self.verbose = verbose
         self.assumeNonnull = assumeNonnull
         self.sdkOverride = sdkOverride.first
         self.destOverride = destOverride.first
@@ -130,7 +135,7 @@ struct GenerateCommand {
                 "-showBuildSettings",
                 "-project", tempProjectURL.path,
                 "-target", targetName
-            ])
+            ], verbose: verbose)
         }
         catch {
             printError("cannot query build settings for \(tempProjectURL.path): \(error)")
@@ -245,7 +250,7 @@ struct GenerateCommand {
         
         let output: String
         do {
-            output = try shell("/usr/bin/xcodebuild", args: args)
+            output = try shell("/usr/bin/xcodebuild", args: args, verbose: verbose)
         }
         catch {
             printError("cannot dry-run build for \(tempProjectURL.path)")
@@ -298,7 +303,7 @@ struct GenerateCommand {
                 "-x", "objective-c", "-C", "-fmodules", "-fimplicit-modules",
                 "-E", bridgingSourceURL.path,
                 "-o", preprocessedURL.path
-                ] + compilerFlags)
+                ] + compilerFlags, verbose: verbose)
         }
         catch {
             printError("failed to preprocess file at \(bridgingSourceURL.path): \(error)")
