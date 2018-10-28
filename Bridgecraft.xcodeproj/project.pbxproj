@@ -68,6 +68,7 @@
 		E81068A7200968FC00229277 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/Mac/SWXMLHash.framework; sourceTree = "<group>"; };
 		E81068A8200968FD00229277 /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Yams.framework; path = Carthage/Build/Mac/Yams.framework; sourceTree = "<group>"; };
 		E81068BF200970DA00229277 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		E879A7262185CC8D00EC6778 /* Bridgecraft.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bridgecraft.podspec; sourceTree = "<group>"; };
 		E87A0EF42017EC970017C82B /* GenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCommand.swift; sourceTree = "<group>"; };
 		E87A0EF62017ECF60017C82B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E87A0EF82017EE380017C82B /* PatchCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchCommand.swift; sourceTree = "<group>"; };
@@ -112,6 +113,7 @@
 		E810688A200966D600229277 = {
 			isa = PBXGroup;
 			children = (
+				E879A7262185CC8D00EC6778 /* Bridgecraft.podspec */,
 				E81068A4200967E800229277 /* Cartfile */,
 				E81068BF200970DA00229277 /* LICENSE */,
 				E892C10D201499CC00BED02B /* Package.swift */,
