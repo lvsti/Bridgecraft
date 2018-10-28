@@ -90,7 +90,7 @@ struct PatchCommand {
         
         guard
             let mainGroup = projectFile.project.mainGroup.value,
-            let fileRef = try? projectFile.createFileReference(path: fileName,
+            let fileRef = try? projectFile.createFileReference(path: sourceFileURL.path,
                                                                name: fileName,
                                                                sourceTree: .group,
                                                                lastKnownFileType: fileType)

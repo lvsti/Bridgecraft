@@ -198,7 +198,7 @@ struct GenerateCommand {
         
         guard
             let mainGroup = projectFile.project.mainGroup.value,
-            let fileRef = try? projectFile.createFileReference(path: fileName,
+            let fileRef = try? projectFile.createFileReference(path: bridgingSourceURL.path,
                                                                name: fileName,
                                                                sourceTree: .group,
                                                                lastKnownFileType: kUTTypeObjectiveCSource as String)
