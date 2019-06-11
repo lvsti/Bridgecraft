@@ -34,7 +34,7 @@ let package = Package(
         .executable(name: "bridgecraft", targets: ["Bridgecraft"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kylef/Commander.git", from: "0.8.0"),
+        .package(url: "https://github.com/lvsti/Commander.git", .branch("bare-double-dash")),
         .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.21.2"),
         .package(url: "https://github.com/tomlokhorst/XcodeEdit.git", from: "2.4.2"),
     ],
