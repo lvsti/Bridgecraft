@@ -14,19 +14,18 @@ extension GenerateCommand {
     static func execute(assumeNonnull: Bool,
                         keepDefaults: Bool,
                         verbose: Bool,
-                        sdkOverride: [String],
-                        destOverride: [String],
                         outputPath: [String],
                         origProjectPath: String,
-                        targetName: String) {
+                        targetName: String,
+                        extraParams: [String]) {
         let cmd = GenerateCommand(assumeNonnull: assumeNonnull,
                                   keepDefaults: keepDefaults,
                                   verbose: verbose,
-                                  sdkOverride: sdkOverride,
-                                  destOverride: destOverride,
                                   outputPath: outputPath,
                                   origProjectPath: origProjectPath,
-                                  targetName: targetName)
+                                  targetName: targetName,
+                                  extraParams: extraParams
+        )
         cmd.run()
     }
 }
@@ -41,24 +40,22 @@ struct GenerateCommand {
     private let assumeNonnull: Bool
     private let keepDefaults: Bool
     private let verbose: Bool
-    private let sdkOverride: String?
-    private let destOverride: String?
     private let targetName: String
+    private let extraParams: [String]
     
     init(assumeNonnull: Bool,
          keepDefaults: Bool,
          verbose: Bool,
-         sdkOverride: [String],
-         destOverride: [String],
          outputPath: [String],
          origProjectPath: String,
-         targetName: String) {
+         targetName: String,
+         extraParams: [String]
+         ) {
         self.assumeNonnull = assumeNonnull
         self.keepDefaults = keepDefaults
         self.verbose = verbose
-        self.sdkOverride = sdkOverride.first
-        self.destOverride = destOverride.first
         self.targetName = targetName
+        self.extraParams = extraParams
         
         origProjectURL = URL(fileURLWithPath: origProjectPath)
 
@@ -247,14 +244,8 @@ struct GenerateCommand {
             "-target", targetName,
             "-UseModernBuildSystem=0" // TODO: remove -UseModernBuildSystem=0 once the new build system supports -dry-run
         ]
-        
-        if let sdk = sdkOverride {
-            args += ["-sdk", sdk]
-        }
-        
-        if let dest = destOverride {
-            args += ["-destination", dest]
-        }
+
+        args.append(contentsOf: extraParams)
         
         let output: String
         do {
