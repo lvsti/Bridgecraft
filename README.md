@@ -82,12 +82,13 @@ To run: macOS 10.10
 ### Caveats and known issues
 
 - Preprocessing throws away all `NS_ASSUME_NONNULL` macros which would result in implicitly unwrapped optionals all over the place. To circumvent that, use the `--assume-nonnull` option but make sure all the referenced headers have previously been audited for nullability.
-- If your target platform is iOS/tvOS/watchOS, chances are the command will fail because it will try to build for the device instead of the simulator. As a workaround, specify the `--sdk` and `--destination` options with the usual values, e.g. 
+- If your target platform is iOS/tvOS/watchOS, chances are the command will fail because it will try to build for the device instead of the simulator. As a workaround, specify the `-configuration`, `-sdk`, `-destination` or any other options that you want to send to the xcodebuild with the usual values, e.g. 
 
     ```
-    $ bridgecraft generate <path_to_xcodeproj> <target_name> \
-        --sdk iphonesimulator \
-        --destination 'platform=iOS Simulator,name=iPhone 6,OS=latest'
+    $ bridgecraft generate <path_to_xcodeproj> <target_name> -- \
+        -configuration Debug \
+        -sdk iphonesimulator \
+        -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest'
     ```
 
 ### License
