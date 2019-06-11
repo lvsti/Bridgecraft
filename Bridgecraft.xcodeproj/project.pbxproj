@@ -69,10 +69,10 @@
 		E81068A8200968FD00229277 /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Yams.framework; path = Carthage/Build/Mac/Yams.framework; sourceTree = "<group>"; };
 		E81068BF200970DA00229277 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E879A7262185CC8D00EC6778 /* Bridgecraft.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bridgecraft.podspec; sourceTree = "<group>"; };
+		E87A0EDA2017D0000017C82B /* XcodeEdit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeEdit.framework; path = Carthage/Build/Mac/XcodeEdit.framework; sourceTree = "<group>"; };
 		E87A0EF42017EC970017C82B /* GenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCommand.swift; sourceTree = "<group>"; };
 		E87A0EF62017ECF60017C82B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E87A0EF82017EE380017C82B /* PatchCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchCommand.swift; sourceTree = "<group>"; };
-		E87A0EDA2017D0000017C82B /* XcodeEdit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeEdit.framework; path = Carthage/Build/Mac/XcodeEdit.framework; sourceTree = "<group>"; };
 		E8834AEE200FE72D005DCD59 /* Commander.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Commander.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8834B07200FE887005DCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8834B1D200FE8DC005DCD59 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Command.swift; path = Carthage/Checkouts/Commander/Sources/Commander/Command.swift; sourceTree = SOURCE_ROOT; };
@@ -460,7 +460,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.Bridgecraft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -479,7 +479,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.Bridgecraft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -503,7 +503,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -528,7 +528,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = li.fuller.Commander;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

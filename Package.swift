@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:4.2
 //
 //  Package.swift
 //  Bridgecraft
@@ -45,5 +45,5 @@ let package = Package(
             path: "Bridgecraft"
         ),
     ],
-    swiftLanguageVersions: [4]
+    swiftLanguageVersions: [.v4, .v4_2]
 )
