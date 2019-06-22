@@ -18,7 +18,7 @@ let generate = command(
     Options<String>("output", default: [], flag: "o", count: 1, description: "write the generated interface into the given file instead of the standard output"),
     Argument<String>("project", description: "path to the project file"),
     Argument<String>("target", description: "name of the target to use"),
-    VariadicArgument<String>("xcflags", description: "additional parameters to pass to xcodebuild"),
+    Argument<[String]>("xcflags", description: "additional parameters to pass to xcodebuild"),
     GenerateCommand.execute
 )
 
